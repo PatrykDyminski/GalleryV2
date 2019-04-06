@@ -56,7 +56,6 @@ class MyAdapter(private val context: Context, private var history: ArrayList<Dat
         holder.name.text = history[position].name
         holder.tags.text = history[position].tags
         holder.date.text = "data noo"
-        holder.pic.setImageResource(R.mipmap.merc)
 
         val target: Target = MyTarget(holder)
         Picasso.get().load(history[position].url).into(target)
@@ -81,9 +80,11 @@ class MyAdapter(private val context: Context, private var history: ArrayList<Dat
         }
 
         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+            holder.pic.setImageResource(R.mipmap.merc)
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            //holder.pic.setImageResource(R.mipmap.merc)
         }
 
     }
