@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
             viewAdapter.notifyDataSetChanged()
 
-            Toast.makeText(this, url, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, url, Toast.LENGTH_SHORT).show()
 
         }
     }
