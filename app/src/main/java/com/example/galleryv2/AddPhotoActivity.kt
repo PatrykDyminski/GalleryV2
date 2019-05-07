@@ -8,6 +8,10 @@ import kotlinx.android.synthetic.main.activity_add_photo.*
 
 class AddPhotoActivity : AppCompatActivity() {
 
+    companion object {
+        const val KEY = "replying"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_photo)
@@ -19,21 +23,10 @@ class AddPhotoActivity : AppCompatActivity() {
 
         val name = name_field.text.toString()
         val url = url_field.text.toString()
-        val tags = tags_field.text.toString()
-
-        //Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, MainActivity::class.java)
 
-
-        val bundle = Bundle()
-
-        bundle.putString("name",name)
-        bundle.putString("url",url)
-        bundle.putString("tags",tags)
-
-        intent.putExtras(bundle)
-
+        intent.putExtra(KEY ,DataItem(name, url, ""))
         setResult(Activity.RESULT_OK, intent)
         finish()
     }

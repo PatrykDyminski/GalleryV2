@@ -1,6 +1,7 @@
 package com.example.galleryv2
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -15,34 +16,34 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat.startActivity
+import android.widget.Toast
 import java.lang.Exception
 import java.util.*
 import java.util.Collections.swap
 
 
-
-
-class MyAdapter(private val context: Context, private var history: ArrayList<DataItem>): RecyclerView.Adapter<MyAdapter.DataHolder>(),ItemTouchHelperAdapter {
+class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>): RecyclerView.Adapter<MyAdapter.DataHolder>(),ItemTouchHelperAdapter {
 
     override fun onItemDismiss(position: Int) {
-        history.removeAt(position)
+        listOfPhotos.removeAt(position)
         notifyItemRemoved(position)
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
-                Collections.swap(history, i, i + 1)
+                Collections.swap(listOfPhotos, i, i + 1)
             }
         } else {
             for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(history, i, i - 1)
+                Collections.swap(listOfPhotos, i, i - 1)
             }
         }
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    override fun getItemCount(): Int = history.size
+    override fun getItemCount(): Int = listOfPhotos.size
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataHolder {
@@ -53,12 +54,24 @@ class MyAdapter(private val context: Context, private var history: ArrayList<Dat
 
     override fun onBindViewHolder(holder: DataHolder, position: Int) {
 
-        holder.name.text = history[position].name
-        holder.tags.text = history[position].tags
+        holder.name.text = listOfPhotos[position].name
+        holder.tags.text = listOfPhotos[position].tags
         holder.date.text = "data noo"
 
         val target: Target = MyTarget(holder)
-        Picasso.get().load(history[position].url).into(target)
+        Picasso.get().load(listOfPhotos[position].url).into(target)
+
+        onClickListener(holder,position)
+    }
+
+    private fun onClickListener(holder: DataHolder, position: Int){
+        holder.itemView.setOnClickListener {
+            Toast.makeText(context, position.toString(),Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, FragmentActivity::class.java)
+            intent.putParcelableArrayListExtra("lista",listOfPhotos)
+            intent.putExtra("pos",position)
+            startActivity(context,intent,null)
+        }
     }
 
     fun processImageTagging(bitmap:Bitmap?, holder: DataHolder){
