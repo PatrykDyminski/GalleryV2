@@ -11,6 +11,10 @@ import com.example.galleryv2.Fragments.BigPhotoFragment
 import com.example.galleryv2.Fragments.DetailsFragment
 
 class FragmentActivity : AppCompatActivity() {
+    companion object {
+        const val ARRAY = "lista"
+        const val POSITION = "pos"
+    }
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var bigPhotoFragment: Fragment
@@ -22,14 +26,14 @@ class FragmentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fragment)
         fragmentManager = supportFragmentManager
 
-        val data = intent.getParcelableArrayListExtra<DataItem>("lista")
-        val position = intent.getIntExtra("pos", 0)
+        val data = intent.getParcelableArrayListExtra<DataItem>(ARRAY)
+        val position = intent.getIntExtra(POSITION, 0)
 
         bigPhotoFragment = BigPhotoFragment.newInstance(data[position].url)
         detailsFragment = DetailsFragment.newInstance(data[position])
 
         fragmentManager.beginTransaction().add(R.id.activity_fragment, bigPhotoFragment, "photo").commit()
-        fragmentManager.beginTransaction().add(R.id.activity_fragment, detailsFragment, "photo").commit()
+        fragmentManager.beginTransaction().add(R.id.activity_fragment, detailsFragment, "details").commit()
         fragmentManager.beginTransaction().hide(detailsFragment).commit()
 
     }

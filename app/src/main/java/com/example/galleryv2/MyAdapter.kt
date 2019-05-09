@@ -18,12 +18,13 @@ import com.squareup.picasso.Target
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat.startActivity
 import android.widget.Toast
+import com.example.galleryv2.TouchHelpers.ItemTouchHelperAdapter
 import java.lang.Exception
 import java.util.*
-import java.util.Collections.swap
 
 
-class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>): RecyclerView.Adapter<MyAdapter.DataHolder>(),ItemTouchHelperAdapter {
+class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>): RecyclerView.Adapter<MyAdapter.DataHolder>(),
+    ItemTouchHelperAdapter {
 
     override fun onItemDismiss(position: Int) {
         listOfPhotos.removeAt(position)
@@ -69,8 +70,8 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         holder.itemView.setOnClickListener {
             Toast.makeText(context, position.toString(),Toast.LENGTH_SHORT).show()
             val intent = Intent(context, FragmentActivity::class.java)
-            intent.putParcelableArrayListExtra("lista",listOfPhotos)
-            intent.putExtra("pos",position)
+            intent.putParcelableArrayListExtra(FragmentActivity.ARRAY,listOfPhotos)
+            intent.putExtra(FragmentActivity.POSITION,position)
             startActivity(context,intent,null)
         }
     }
@@ -99,7 +100,7 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            //holder.pic.setImageResource(R.mipmap.merc)
+            holder.pic.setImageResource(R.mipmap.merc)
         }
 
     }

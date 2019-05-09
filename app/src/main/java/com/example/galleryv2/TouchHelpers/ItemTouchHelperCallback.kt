@@ -1,7 +1,8 @@
-package com.example.galleryv2
+package com.example.galleryv2.TouchHelpers
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import com.example.galleryv2.TouchHelpers.ItemTouchHelperAdapter
 
 class ItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
 
