@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/add"
-          android:id="@+id/add_photo_menu"
+    <item android:title="swap"
+          android:id="@+id/swap"
           app:showAsAction="ifRoom"
-          android:icon="@android:drawable/ic_menu_add"/>
+          android:icon="@android:drawable/ic_menu_help"/>
+
+
+
 </menu>

@@ -41,6 +41,7 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
             }
         }
         notifyItemMoved(fromPosition, toPosition)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = listOfPhotos.size
@@ -56,9 +57,9 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
 
         holder.name.text = listOfPhotos[position].name
         holder.tags.text = listOfPhotos[position].tags
-        holder.date.text = "data noo"
+        holder.date.text = listOfPhotos[position].date
 
-        val target: Target = MyTarget(holder)
+        val target: Target = MyTarget(holder, position)
         Picasso.get().load(listOfPhotos[position].url).into(target)
 
         onClickListener(holder,position)
@@ -74,22 +75,23 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         }
     }
 
-    fun processImageTagging(bitmap:Bitmap?, holder: DataHolder){
+    fun processImageTagging(bitmap:Bitmap?, holder: DataHolder, position:Int){
         val visionImg: FirebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap!!)
         val labeler: FirebaseVisionImageLabeler = FirebaseVision.getInstance().onDeviceImageLabeler
 
         labeler.processImage(visionImg).addOnSuccessListener { tags ->
-            holder.tags.text = tags.joinToString(", ") { it.text }
+            holder.tags.text = tags.joinToString(" #", prefix = "#") { it.text }
+            listOfPhotos[position].tags = tags.joinToString(" #", prefix = "#") { it.text }
         }
         .addOnFailureListener { ex ->
             Log.wtf("LAB",ex)
         }
     }
 
-    inner class MyTarget(val holder:DataHolder): Target{
+    inner class MyTarget(val holder:DataHolder, val position:Int): Target{
         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
             holder.pic.setImageBitmap(bitmap)
-            processImageTagging(bitmap,holder)
+            processImageTagging(bitmap,holder, position)
         }
 
         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {

@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(recyclerView)
 
-        myDataset.add(DataItem("elo","http://i.imgur.com/DvpvklR.png",""))
-        myDataset.add(DataItem("elo320","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/oneplus-7-4.jpg",""))
-        myDataset.add(DataItem("elo","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/Logitech-G935-Wireless-1.jpg",""))
+        myDataset.add(DataItem("elo","http://i.imgur.com/DvpvklR.png","","jakas data"))
+        myDataset.add(DataItem("elo320","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/oneplus-7-4.jpg","","inna data"))
+        myDataset.add(DataItem("elo","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/Logitech-G935-Wireless-1.jpg","","jeszcze inna"))
         viewAdapter.notifyDataSetChanged()
     }
 

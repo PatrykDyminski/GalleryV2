@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlinx.android.synthetic.main.activity_add_photo.*
 
 class AddPhotoActivity : AppCompatActivity() {
@@ -23,12 +25,11 @@ class AddPhotoActivity : AppCompatActivity() {
 
         val name = name_field.text.toString()
         val url = url_field.text.toString()
-
         val intent = Intent(this, MainActivity::class.java)
+        val date = SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss", Locale.getDefault()).format(Date())
 
-        intent.putExtra(KEY ,DataItem(name, url, ""))
+        intent.putExtra(KEY ,DataItem(name, url, "", date))
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
-
 }

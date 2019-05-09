@@ -31,7 +31,6 @@ class BigPhotoFragment : Fragment() {
     ): View? {
 
         val view  = inflater.inflate(R.layout.fragment_big_photo, container, false)
-
         val photo = view.findViewById<ImageView>(R.id.obrazek)
 
         Picasso.get().load(arguments?.getString("kluczyk")).into(photo)
