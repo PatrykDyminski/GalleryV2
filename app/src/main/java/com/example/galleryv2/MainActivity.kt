@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -19,14 +20,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    val myDataset: ArrayList<DataItem> = ArrayList()
+    var myDataset: ArrayList<DataItem> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = MyAdapter(this,myDataset)
+        viewAdapter = MyAdapter(this, myDataset)
 
         recyclerView = my_recycler_view.apply {
             layoutManager = viewManager
@@ -37,9 +38,24 @@ class MainActivity : AppCompatActivity() {
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(recyclerView)
 
-        myDataset.add(DataItem("elo","http://i.imgur.com/DvpvklR.png","","jakas data"))
-        myDataset.add(DataItem("elo320","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/oneplus-7-4.jpg","","inna data"))
-        myDataset.add(DataItem("elo","https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/Logitech-G935-Wireless-1.jpg","","jeszcze inna"))
+        myDataset.add(DataItem("elo", "http://i.imgur.com/DvpvklR.png", "", "jakas data"))
+        myDataset.add(
+            DataItem(
+                "elo320",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/oneplus-7-4.jpg",
+                "",
+                "inna data"
+            )
+        )
+        myDataset.add(
+            DataItem(
+                "elo",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/Logitech-G935-Wireless-1.jpg",
+                "",
+                "jeszcze inna"
+            )
+        )
+
         viewAdapter.notifyDataSetChanged()
     }
 
@@ -59,20 +75,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addPhoto():Boolean {
-        val intent = Intent(this,AddPhotoActivity::class.java)
-        startActivityForResult(intent,1)
+    private fun addPhoto(): Boolean {
+        val intent = Intent(this, AddPhotoActivity::class.java)
+        startActivityForResult(intent, 1)
         return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK && data!=null){
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
 
-            val item:DataItem? = data?.getParcelableExtra(AddPhotoActivity.KEY)
+            val item: DataItem? = data?.getParcelableExtra(AddPhotoActivity.KEY)
             myDataset.add(item!!)
             viewAdapter.notifyDataSetChanged()
         }
     }
+
 }

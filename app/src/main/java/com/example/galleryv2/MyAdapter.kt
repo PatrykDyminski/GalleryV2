@@ -23,12 +23,14 @@ import java.lang.Exception
 import java.util.*
 
 
-class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>): RecyclerView.Adapter<MyAdapter.DataHolder>(),
+class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>) :
+    RecyclerView.Adapter<MyAdapter.DataHolder>(),
     ItemTouchHelperAdapter {
 
     override fun onItemDismiss(position: Int) {
         listOfPhotos.removeAt(position)
-        notifyItemRemoved(position)
+        //notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
@@ -50,7 +52,7 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val cell = layoutInflater.inflate(R.layout.data_view, parent,false)
+        val cell = layoutInflater.inflate(R.layout.data_view, parent, false)
         return DataHolder(cell)
     }
 
@@ -63,20 +65,20 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         val target: Target = MyTarget(holder, position)
         Picasso.get().load(listOfPhotos[position].url).into(target)
 
-        onClickListener(holder,position)
+        onClickListener(holder, position)
     }
 
-    private fun onClickListener(holder: DataHolder, position: Int){
+    private fun onClickListener(holder: DataHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, position.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             val intent = Intent(context, FragmentActivity::class.java)
-            intent.putParcelableArrayListExtra(FragmentActivity.ARRAY,listOfPhotos)
-            intent.putExtra(FragmentActivity.POSITION,position)
-            startActivity(context,intent,null)
+            intent.putParcelableArrayListExtra(FragmentActivity.ARRAY, listOfPhotos)
+            intent.putExtra(FragmentActivity.POSITION, position)
+            startActivity(context, intent, null)
         }
     }
 
-    fun processImageTagging(bitmap:Bitmap?, holder: DataHolder, position:Int){
+    fun processImageTagging(bitmap: Bitmap?, holder: DataHolder, position: Int) {
         val visionImg: FirebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap!!)
         val labeler: FirebaseVisionImageLabeler = FirebaseVision.getInstance().onDeviceImageLabeler
 
@@ -84,15 +86,15 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
             holder.tags.text = tags.joinToString(" #", prefix = "#") { it.text }
             listOfPhotos[position].tags = tags.joinToString(" #", prefix = "#") { it.text }
         }
-        .addOnFailureListener { ex ->
-            Log.wtf("LAB",ex)
-        }
+            .addOnFailureListener { ex ->
+                Log.wtf("LAB", ex)
+            }
     }
 
-    inner class MyTarget(val holder:DataHolder, val position:Int): Target{
+    inner class MyTarget(val holder: DataHolder, val position: Int) : Target {
         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
             holder.pic.setImageBitmap(bitmap)
-            processImageTagging(bitmap,holder, position)
+            processImageTagging(bitmap, holder, position)
         }
 
         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
@@ -100,12 +102,12 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         }
 
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            holder.pic.setImageResource(R.mipmap.merc)
+            //holder.pic.setImageResource(R.mipmap.merc)
         }
 
     }
 
-    class DataHolder(v: View): RecyclerView.ViewHolder(v){
+    class DataHolder(v: View) : RecyclerView.ViewHolder(v) {
         val name: TextView = itemView.findViewById(R.id.name_label)
         val pic: ImageView = itemView.findViewById(R.id.picture)
         val date: TextView = itemView.findViewById(R.id.date_label)
