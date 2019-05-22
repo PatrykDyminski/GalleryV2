@@ -15,11 +15,13 @@ class BigPhotoFragment : Fragment() {
 
     companion object {
 
+        private const val KEY = "data"
+
         @JvmStatic
         fun newInstance(url: String) =
             BigPhotoFragment().apply {
                 arguments = Bundle().apply {
-                    putString("kluczyk", url)
+                    putString(KEY, url)
                 }
             }
     }
@@ -33,7 +35,7 @@ class BigPhotoFragment : Fragment() {
         val view  = inflater.inflate(R.layout.fragment_big_photo, container, false)
         val photo = view.findViewById<ImageView>(R.id.obrazek)
 
-        Picasso.get().load(arguments?.getString("kluczyk")).into(photo)
+        Picasso.get().load(arguments?.getString(KEY)).into(photo)
 
         return view
     }

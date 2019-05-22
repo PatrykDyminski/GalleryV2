@@ -29,12 +29,12 @@ class AddPhotoActivity : AppCompatActivity() {
         val url = url_field.text.toString()
 
         if (url.isEmpty() || !URLUtil.isValidUrl(url)) {
-            android.widget.Toast.makeText(this, "Podaj poprawny adres url", Toast.LENGTH_LONG).show();
+            android.widget.Toast.makeText(this, "Podaj poprawny adres url!", Toast.LENGTH_LONG).show();
         } else {
             val intent = Intent(this, MainActivity::class.java)
             val date = SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss", Locale.getDefault()).format(Date())
 
-            intent.putExtra(KEY, DataItem(name, url, "", date))
+            intent.putExtra(KEY, DataItem(name, url, ArrayList(), date))
             setResult(Activity.RESULT_OK, intent)
             finish()
         }

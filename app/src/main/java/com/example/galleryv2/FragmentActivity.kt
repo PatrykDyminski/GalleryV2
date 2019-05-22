@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.galleryv2.Fragments.BigPhotoFragment
 import com.example.galleryv2.Fragments.DetailsFragment
+import com.example.galleryv2.Fragments.SimilarsFragment
 
 class FragmentActivity : AppCompatActivity() {
     companion object {
@@ -19,6 +20,7 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var bigPhotoFragment: Fragment
     private lateinit var detailsFragment: Fragment
+    private lateinit var similarsFragment: Fragment
     private var isSwapped:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +33,13 @@ class FragmentActivity : AppCompatActivity() {
 
         bigPhotoFragment = BigPhotoFragment.newInstance(data[position].url)
         detailsFragment = DetailsFragment.newInstance(data[position])
+        similarsFragment = SimilarsFragment.newInstance(data[position], data)
 
         fragmentManager.beginTransaction().add(R.id.activity_fragment, bigPhotoFragment, "photo").commit()
         fragmentManager.beginTransaction().add(R.id.activity_fragment, detailsFragment, "details").commit()
+        fragmentManager.beginTransaction().add(R.id.activity_fragment, similarsFragment, "similars").commit()
         fragmentManager.beginTransaction().hide(detailsFragment).commit()
-
+        fragmentManager.beginTransaction().hide(similarsFragment).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -45,7 +49,6 @@ class FragmentActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
         return when (item.itemId) {
             R.id.swap -> {
                 swapFragments()
@@ -58,12 +61,14 @@ class FragmentActivity : AppCompatActivity() {
     private fun swapFragments() {
         if (isSwapped){
             fragmentManager.beginTransaction().hide(detailsFragment).commit()
+            fragmentManager.beginTransaction().hide(similarsFragment).commit()
             fragmentManager.beginTransaction().show(bigPhotoFragment).commit()
             isSwapped = !isSwapped
 
         } else{
             fragmentManager.beginTransaction().hide(bigPhotoFragment).commit()
             fragmentManager.beginTransaction().show(detailsFragment).commit()
+            fragmentManager.beginTransaction().show(similarsFragment).commit()
             isSwapped = !isSwapped
         }
 

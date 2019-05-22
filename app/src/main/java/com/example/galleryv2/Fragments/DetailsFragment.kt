@@ -35,10 +35,13 @@ class DetailsFragment : Fragment() {
         val tags = view.findViewById<TextView>(R.id.tags)
 
         val element = arguments?.getParcelable<DataItem>(DATA_KEY)
+        val data = arguments?.getParcelableArrayList<DataItem>("test")
 
         name.text = element?.name
         date.text = element?.date
-        tags.text = element?.tags
+
+        val tgs = element?.tags!!.joinToString(" #", prefix = "#")
+        tags.text = tgs
 
         return view
     }
