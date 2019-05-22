@@ -21,6 +21,7 @@ import android.widget.Toast
 import com.example.galleryv2.TouchHelpers.ItemTouchHelperAdapter
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MyAdapter(private val context: Context, private var listOfPhotos: ArrayList<DataItem>) :
@@ -84,7 +85,11 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
 
         labeler.processImage(visionImg).addOnSuccessListener { tags ->
             holder.tags.text = tags.joinToString(" #", prefix = "#") { it.text }
-            listOfPhotos[position].tags.addAll(tags.map { it.text })
+
+            var temp = ArrayList<String>()
+            temp.addAll(tags.map { it.text })
+            listOfPhotos[position].tags = temp
+
         }
             .addOnFailureListener { ex ->
                 Log.wtf("LAB", ex)
