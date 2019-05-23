@@ -50,7 +50,7 @@ class SimilarsFragment : Fragment() {
 
         val similars = getSimilars(list!!, element!!)
 
-        for (i in 0 until similars.size) {
+        for (i in 0 until minOf(similars.size, 6)) {
             imgList[i].visibility = View.VISIBLE
             Picasso.get().load(similars[i].url).into(imgList[i])
 

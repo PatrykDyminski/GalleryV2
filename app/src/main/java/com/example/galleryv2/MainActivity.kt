@@ -38,45 +38,77 @@ class MainActivity : AppCompatActivity() {
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(recyclerView)
 
-        myDataset.add(DataItem("elo", "http://i.imgur.com/DvpvklR.png", ArrayList(), "jakas data"))
+        myDataset.add(DataItem("Picasso", "http://i.imgur.com/DvpvklR.png", ArrayList(), "2019-05-06"))
         myDataset.add(
             DataItem(
-                "elo2",
+                "Skoda",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/skoda-superb-lifting-2019-4.jpg",
+                ArrayList(),
+                "2019-05-06"
+            )
+        )
+        myDataset.add(
+            DataItem(
+                "Rover",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/land-rover-discovery-sport-przod.jpg",
+                ArrayList(),
+                "2019-05-06"
+            )
+        )
+        myDataset.add(
+            DataItem(
+                "Klocek",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/honda-e-4.jpg",
+                ArrayList(),
+                "2019-05-06"
+            )
+        )
+        myDataset.add(
+            DataItem(
+                "Inna skoda",
+                "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/02_SUPERB_iV-2560x1810.jpg",
+                ArrayList(),
+                "2019-05-06"
+            )
+        )
+        myDataset.add(
+            DataItem(
+                "Autko",
                 "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/04/hyundai-nexo-test-polska-2.jpg",
                 ArrayList(),
-                "jakas data"
+                "2019-06-01"
             )
         )
         myDataset.add(
             DataItem(
-                "elo2",
+                "Inne autko",
                 "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/mercedes-w123-560-te-3.jpg",
                 ArrayList(),
-                "jakas data"
+                "2019-02-01"
             )
         )
         myDataset.add(
             DataItem(
-                "elo2",
+                "Może auto",
                 "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/autoblog/2019/05/Bmw-z4-m40i-2019-test-15.jpg",
                 ArrayList(),
-                "jakas data"
+                "2137-06-04"
             )
         )
         myDataset.add(
             DataItem(
-                "elo320",
+                "telefon?",
                 "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/oneplus-7-4.jpg",
                 ArrayList(),
-                "inna data"
+                "2019-12-12"
             )
         )
         myDataset.add(
             DataItem(
-                "elo",
+                "słuchawki",
                 "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/spidersweb/2019/05/Logitech-G935-Wireless-1.jpg",
                 ArrayList(),
-                "jeszcze inna"
+                "2019-07-15"
             )
         )
 

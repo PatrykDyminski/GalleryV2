@@ -71,7 +71,7 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
 
     private fun onClickListener(holder: DataHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             val intent = Intent(context, FragmentActivity::class.java)
             intent.putParcelableArrayListExtra(FragmentActivity.ARRAY, listOfPhotos)
             intent.putExtra(FragmentActivity.POSITION, position)
@@ -84,7 +84,7 @@ class MyAdapter(private val context: Context, private var listOfPhotos: ArrayLis
         val labeler: FirebaseVisionImageLabeler = FirebaseVision.getInstance().onDeviceImageLabeler
 
         labeler.processImage(visionImg).addOnSuccessListener { tags ->
-            holder.tags.text = tags.joinToString(" #", prefix = "#") { it.text }
+            holder.tags.text = tags.take(6).joinToString(" #", prefix = "#") { it.text }
 
             var temp = ArrayList<String>()
             temp.addAll(tags.map { it.text })
